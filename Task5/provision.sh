@@ -18,6 +18,6 @@ aws cloudwatch put-metric-alarm \
     --period 60 \
     --threshold 2 \
     --comparison-operator LessThanThreshold \
-    --dimensions Name=TargetGroup,Value=targetgroup/TargetGroup/4de190e145ab5b25 Name=LoadBalancer,Value=app/my-load-balancer/5d014842c45122d2 \
+    --dimensions Name=TargetGroup,Value=targetgroup/TargetGroup/e7d846dcdebcdb84 Name=LoadBalancer,Value=app/my-load-balancer/beb25a665531af9a \
     --evaluation-periods 1 \
     --alarm-actions $TOPIC_ARN

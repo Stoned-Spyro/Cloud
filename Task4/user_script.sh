@@ -4,3 +4,4 @@ yum install httpd -y
 systemctl start httpd
 systemctl enable httpd
 touch /var/www/html/index.html
+echo "<h1>Oleksiy Task4 At $(hostname -f) </h1>" > /var/www/html/index.html

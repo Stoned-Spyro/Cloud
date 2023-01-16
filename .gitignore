@@ -1,1 +1,5 @@
 MyKeyPair.pem
+MyKeyPairLB.pem
+MyKeyPairLab2.pem
+.terraform/
+.terraform.lock.hcl
