@@ -1,0 +1,11 @@
+{
+    "LambdaFunctionConfigurations": [
+        {
+            "Id": "lambda-trigger",
+            "LambdaFunctionArn": "arn:aws:lambda:us-east-1:266132757975:function:sam-app-CreateThumbnail-TOUNW8tppbjF" ,
+            "Events": [
+                "s3:ObjectCreated:*"
+            ]
+        }
+    ]
+}

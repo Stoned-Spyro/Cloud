@@ -44,10 +44,12 @@ aws ec2 modify-vpc-attribute --enable-dns-hostnames --vpc-id $VPS_ID
 # Retrieve IP address
 IP_ADDRESS=`aws ec2 describe-instances --instance-ids $INSTANCE_ID --query Reservations[].Instances[].PublicDnsName --output text`
 
-# Connect to instance using key pair and public IP
-ssh -i "MyKeyPairLab2.pem" ec2-user@$IP_ADDRESS
-
 # Check instance state
 aws ec2 describe-instance-status --instance-id $INSTANCE_ID
 
 sleep 30
+
+# Connect to instance using key pair and public IP
+ssh -i "MyKeyPairLab2.pem" ec2-user@$IP_ADDRESS
+
+
