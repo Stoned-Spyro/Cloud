@@ -1,6 +1,9 @@
 # Create SNS topic
 TOPIC_ARN=`aws sns create-topic --name health_checking --query 'TopicArn' --output text`
 
+TARGET_GROUP_ID="e7d846dcdebcdb84"
+LB_ID="beb25a665531af9a"
+
 # Subscribe SNS topic
 SUB_ARN=`aws sns subscribe \
     --topic-arn $TOPIC_ARN \
@@ -18,6 +21,6 @@ aws cloudwatch put-metric-alarm \
     --period 60 \
     --threshold 2 \
     --comparison-operator LessThanThreshold \
-    --dimensions Name=TargetGroup,Value=targetgroup/TargetGroup/e7d846dcdebcdb84 Name=LoadBalancer,Value=app/my-load-balancer/beb25a665531af9a \
+    --dimensions Name=TargetGroup,Value=targetgroup/TargetGroup/$TARGET_GROUP_ID Name=LoadBalancer,Value=app/my-load-balancer/$LB_ID \
     --evaluation-periods 1 \
     --alarm-actions $TOPIC_ARN
