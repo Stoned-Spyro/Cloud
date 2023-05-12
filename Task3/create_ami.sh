@@ -8,7 +8,7 @@ INSTANCE_ID=`aws ec2 describe-instances \
 # Create an image
 aws ec2 create-image \
     --instance-id $INSTANCE_ID \
-    --name "Test Image" \
+    --name "Lab3 Image" \
     --description "An Image of my instance"
 
 sleep 15
