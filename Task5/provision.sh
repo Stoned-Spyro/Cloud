@@ -1,8 +1,5 @@
 # Create SNS topic
-TOPIC_ARN=`aws sns create-topic --name health_checking --query 'TopicArn' --output text`
-
-TARGET_GROUP_ID="targetgroup/TargetGroupLab4/f282e53098788eef"
-LB_ID="app/my-load-balancer/8ece4b01f3db1ad5"
+TOPIC_ARN=`aws sns create-topic --name load_balancer_health --query 'TopicArn' --output text`
 
 # Subscribe SNS topic
 SUB_ARN=`aws sns subscribe \
@@ -13,7 +10,7 @@ SUB_ARN=`aws sns subscribe \
 
 # Set up a cloudwatch
 aws cloudwatch put-metric-alarm \
-    --alarm-name health_checking \
+    --alarm-name ELBHealth \
     --alarm-description "Instance is deleted!" \
     --metric-name HealthyHostCount \
     --namespace AWS/ApplicationELB \
@@ -21,6 +18,7 @@ aws cloudwatch put-metric-alarm \
     --period 60 \
     --threshold 2 \
     --comparison-operator LessThanThreshold \
-    --dimensions Name=TargetGroup,Value=$TARGET_GROUP_ID Name=LoadBalancer,Value=$LB_ID \
+    --dimensions Name=TargetGroup,Value=targetgroup/TargetGroupForLab4/516e1598de83b0e7 Name=LoadBalancer,Value=app/my-load-balancer/af9ce62f5650eba7 \
     --evaluation-periods 1 \
     --alarm-actions $TOPIC_ARN
+

@@ -9,7 +9,7 @@ SUBNET_2_ID=`aws ec2 describe-subnets --query 'Subnets[1].SubnetId' --output tex
 
 # Create security group for LoadBalancer
 GROUP_LB_ID=`aws ec2 create-security-group \
-    --group-name SecurityGroupLB2 \
+    --group-name SecurityGroupForLB \
     --description "Security group for LB" \
     --vpc-id $VPC_ID \
     --query GroupId --output text`
@@ -29,7 +29,7 @@ VPC_NET=`aws ec2 describe-vpcs --query Vpcs[0].CidrBlock --output text`
 
 # Create security group for Instances
 GROUP_INC_ID=`aws ec2 create-security-group \
-    --group-name SecurityGroupINC2 \
+    --group-name SecurityGroupForINC2 \
     --description "Security group for Instances" \
     --vpc-id $VPC_ID \
     --query GroupId --output text`
@@ -70,7 +70,7 @@ INSTANCE_2_ID=`aws ec2 run-instances \
 
 # Create a Target Group
 TG_ARN=`aws elbv2 create-target-group \
-    --name TargetGroupLab4 \
+    --name TargetGroupForLab4 \
     --protocol HTTP \
     --port 80 \
     --vpc-id $VPC_ID \
@@ -91,14 +91,14 @@ aws elbv2 create-listener \
 
 # Create Autoscaling Group
 aws autoscaling create-auto-scaling-group \
-    --auto-scaling-group-name AutoScalingGroupLab4 \
+    --auto-scaling-group-name AutoScalingGroupForLab4 \
     --instance-id $INSTANCE_1_ID \
     --min-size 2 \
     --max-size 2 \
     --target-group-arns $TG_ARN 
 # Update health settings
 aws autoscaling update-auto-scaling-group \
-    --auto-scaling-group-name AutoScalingGroupLab4 \
+    --auto-scaling-group-name AutoScalingGroupForLab4 \
     --health-check-type ELB \
     --health-check-grace-period 15 
 
@@ -106,7 +106,7 @@ aws autoscaling update-auto-scaling-group \
 LB_DNS=`aws elbv2 describe-load-balancers --query 'LoadBalancers[0].DNSName' --output text`
 
 # Check AutoScalingGroup
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name AutoScalingGroupLab4
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name AutoScalingGroupForLab4
 
 # Pring LoadBalancer DNS
 echo $LB_DNS

@@ -4,7 +4,7 @@
 IMAGE_ID=`aws ec2 describe-images --owners 266132757975 --query Images[0].ImageId --output text`
 
 # Retrieve SECURITY_GROUP_ID
-GROUP_ID=`aws ec2 describe-security-groups --query SecurityGroups[1].GroupId --output text`
+GROUP_ID=`aws ec2 describe-security-groups --query SecurityGroups[0].GroupId --output text`
 
 # Run Instance
 INSTANCE_ID=`aws ec2 run-instances \

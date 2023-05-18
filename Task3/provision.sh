@@ -8,7 +8,7 @@ SUBNET_ID=`aws ec2 describe-subnets --query 'Subnets[0].SubnetId' --output text`
 
 # Create security group with rule to allow SSH
 GROUP_ID=`aws ec2 create-security-group \
-    --group-name SecurityGroupLab3 \
+    --group-name SecurityGroupForLab3 \
     --description "Security group" \
     --vpc-id $VPC_ID \
     --query GroupId --output text`
